@@ -1,3 +1,5 @@
+<title>NITC</title>
+<link rel="icon" href="images/nitc_image.jpg">
 <html>
 	<head>
 
