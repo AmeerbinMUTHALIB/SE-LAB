@@ -82,7 +82,7 @@ session_start();
 
 $servername = "localhost";
 $username = "root";
-$password = "KSwaroop@2";
+$password = "";
 $db="track";
 
 $conn = new mysqli($servername, $username, $password, $db);
