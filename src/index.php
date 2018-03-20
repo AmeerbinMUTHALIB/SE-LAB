@@ -129,7 +129,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 if($_SESSION['user_id']=="")
 {
-  header('Location:http://localhost/SE-LAB/login.php');
+  header('Location:http://localhost/SE-LAB/src/login.php');
 }
 
 ?>
