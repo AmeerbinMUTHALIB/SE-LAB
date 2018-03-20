@@ -35,7 +35,7 @@ function signIN(){
 }
 </script>
 <body>
-	<form action="index.php" id="signinform" method="post" style="display:none">
+	<form action="actindex.php" id="signinform" method="post" style="display:none">
 		<input name="user_email" id="emailval" style="display:none" required/>
 		<input name="user_name" id="nameval" style="display:none" required/>
 	</form>
