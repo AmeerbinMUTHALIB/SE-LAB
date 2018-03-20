@@ -142,7 +142,26 @@ if($_SESSION['user_id']=="")
       <li><div class="navtitle"><a href="index.php"><b>Doc Tracker</b></a></div></li>
       <li style="font-family: arial, sans-serif;float:right;margin-right:5px;"><a href="#" onclick="signOut()"><b>Logout</b></a></li>
     
-      <li style="font-family: arial, sans-serif;float:right;margin-right:5px;"><a href="index.php"><b><?php echo $_SESSION['username']; ?></b></a></li>
+      <li style="font-family: arial, sans-serif;float:right;margin-right:5px;"><a href="index.php"><b>
+      	<?php 
+      	if($_SESSION['user_id']=='1')
+      	{
+      		echo 'Dean';
+      	}
+      	elseif ($_SESSION['user_id']=='2') {
+      		echo 'DR';
+      	}
+      	else
+      	{
+      		$temp=$_SESSION['user_id']-2;
+      		echo 'GA';
+      		echo $temp;
+      	}
+      	
+      	?>
+      	
+      		
+      	</b></a></li>
     </ul>
   </div>
 
