@@ -27,5 +27,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
+            cd /src
             git push heroku master
+
 
