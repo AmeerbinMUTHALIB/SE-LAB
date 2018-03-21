@@ -78,14 +78,14 @@
 	</head>
 <?php
 
-session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db="track";
-
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$servername = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+// Create connection
 $conn = new mysqli($servername, $username, $password, $db);
+
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
