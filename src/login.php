@@ -3,7 +3,7 @@
 <link rel="icon" href="../images/nitc_image.jpg">
 <html>
 	<head>
-		<meta name="google-signin-client_id" content="546058867792-7tqonu5kbtni0ird2s2bgi65mld9vqt0.apps.googleusercontent.com">
+		<meta name="google-signin-client_id" content="952937888060-v25qao6jrtprhhpm9kosm23egc1aojhh.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 		<script>
@@ -13,7 +13,7 @@
 
       				auth2.signOut().then(function () {
         			console.log('User signed out.');
-        			window.location="login.php";
+        			window.location="index.php";
     				});
     			}	
 
@@ -105,7 +105,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 if($_SESSION['user_id']=="") {
-  	header('Location:http://localhost/SE-LAB/login.php');
+  	header('Location:http://localhost/SE-LAB/index.php');
 }
 ?>
 
@@ -122,7 +122,7 @@ if($_SESSION['user_id']=="") {
 				</li>
 		    
 		      		<li style="font-family: arial, sans-serif;float:right;margin-right:5px;">
-					<a href="index.php"><b>
+					<a href="login.php"><b>
 <?php 
 if($_SESSION['user_id']=='1'){
 	echo 'Dean';

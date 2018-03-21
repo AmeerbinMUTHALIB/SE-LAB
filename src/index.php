@@ -1,12 +1,19 @@
+<?php
+session_start();
+?>
+
+
 <title>NITC</title>
 <link rel="icon" href="../images/nitc_image.jpg">
+
+
 <html>
 	<head>
 
-		<meta name="google-signin-client_id" content="546058867792-7tqonu5kbtni0ird2s2bgi65mld9vqt0.apps.googleusercontent.com">
+		<meta name="google-signin-client_id" content="952937888060-v25qao6jrtprhhpm9kosm23egc1aojhh.apps.googleusercontent.com">
 		<meta name="google-signin-hosted_domain" content="nitc.ac.in" />
 <?php
-session_start();
+
 if(isset($_SESSION["user_id"]) && $_SESSION["user_id"]!= ""){
 	$_SESSION["user_id"]= "";
 }
@@ -136,7 +143,7 @@ if(isset($_SESSION["user_id"]) && $_SESSION["user_id"]!= ""){
 	  	</div>
 		<center>
 			<h1>Sign In</h1>
-			<form action="index.php" id="signinform" method="post" style="display:none">
+			<form action="login.php" id="signinform" method="post" style="display:none">
 				<input name="user_email" id="emailval" style="display:none" required/>
 				<input name="user_name" id="nameval" style="display:none" required/>
 			</form>
