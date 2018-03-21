@@ -24,7 +24,7 @@ jobs:
             sudo chmod +x .circleci/setup-heroku.sh
             .circleci/setup-heroku.sh
 
-      - run:it
+      - run:
           name: Deploy to Heroku
           command: |
             cd src
