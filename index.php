@@ -1,147 +1,99 @@
 <!DOCTYPE html>
-<title>NITC</title>
-<link rel="icon" href="../images/nitc_image.jpg">
 <html>
-	<head>
-		<meta name="google-signin-client_id" content="546058867792-7tqonu5kbtni0ird2s2bgi65mld9vqt0.apps.googleusercontent.com">
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
 
-		<script>
-    
-			function signOut() {
-      				var auth2 = gapi.auth2.getAuthInstance();
-
-      				auth2.signOut().then(function () {
-        			console.log('User signed out.');
-        			window.location="login.php";
-    				});
-    			}	
-
-    			function onLoad() {
-      				gapi.load('auth2', function() {
-      		  			gapi.auth2.init();
-      				});
-    			}
-
-  		</script>
-
-		<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-
-		<style>
-
-			.navBar {
-			   	margin: 0;
-    				padding: 0;
-    				overflow: hidden;
-    				background-color: #39B7CD;
-    				display: block;
-    				align-content: flex-start;
-			}
-		
-			.navItemList{
-  				list-style-type: none;
-			}
-
-			.navItemList li {
-    				float: left;
-			}
-
-			.navItemList li a {
-			    	display: block;
-			    	color: white;
-			    	text-align: center;
-			    	padding: 0 16px;
-			    	text-decoration: none;
-			}
-
-			.navItemList li a:hover {
-			}
-
-			.navtitle{
-  				font-family: arial, sans-serif;
-  				font-weight: bold;
-  				color: white;
-  				text-align: center;
-  				padding: 0px 200px 14px 6px;
-				margin-right: 200px;
-				font-size: 20px;
-				text-decoration: none;
-			}
-
-			.navtitle a:hover{
-			}
-
-			b{
-			  	font-weight: bold;
-			}
-		</style>
-	</head>
-<?php
-
-session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db="track";
-
-$conn = new mysqli($servername, $username, $password, $db);
-if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  	$email_val = $_POST['user_email'];
-  	
-	$qry="SELECT * FROM user WHERE emailid='" . $email_val."'";
-  
-	$result = mysqli_query($conn,$qry);
-  	$row  = mysqli_fetch_assoc($result);
-
-  	if(is_array($row)) {
-    		$_SESSION['user_id'] = $row['flag'];
-   	 	$_SESSION['username']=$_POST['user_name'];
-  	}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }
 
-if($_SESSION['user_id']=="") {
-  	header('Location:http://localhost/SE-LAB/login.php');
-}
-?>
-
-	<body style="padding:0;margin:0;font-family: arial, sans-serif;">
-		  <div class="navBar">
-		  	<ul class="navItemList">
-		      		<li>
-					<div class="navtitle"><a href="index.php">
-						<b>Doc Tracker</b></a>
-					</div>	
-				</li>
-		      		<li style="font-family: arial, sans-serif;float:right;margin-right:5px;">
-					<a href="#" onclick="signOut()"><b>Logout</b></a>
-				</li>
-		    
-		      		<li style="font-family: arial, sans-serif;float:right;margin-right:5px;">
-					<a href="index.php"><b>
-<?php 
-if($_SESSION['user_id']=='1'){
-	echo 'Dean';
+button:hover {
+    opacity: 0.8;
 }
 
-elseif ($_SESSION['user_id']=='2') {
-	echo 'DR';
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
 }
 
-else {
-	$temp=$_SESSION['user_id']-2;
-	echo 'GA';
-	echo $temp;
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
 }
-?>
-		      	
-		   		     	</b></a>
-				</li>
-		    	</ul>
-		</div>
-	</body>
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<h2>Login Form</h2>
+
+<form action="/action_page.php">
+  <div class="imgcontainer">
+    <img src="img_avatar2.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+        
+    <button type="submit">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
+
+</body>
 </html>
+
