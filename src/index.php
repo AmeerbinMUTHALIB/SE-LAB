@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <title>NITC</title>
-<link rel="icon" href="images/nitc_image.jpg">
+<link rel="icon" href="../images/nitc_image.jpg">
 <html>
 	<head>
 		<meta name="google-signin-client_id" content="546058867792-7tqonu5kbtni0ird2s2bgi65mld9vqt0.apps.googleusercontent.com">
