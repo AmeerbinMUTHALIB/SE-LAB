@@ -10,11 +10,11 @@ set -eu
  cat > ~/.netrc << EOF
 
  machine api.heroku.com
-   login $HEROKU_LOGIN
-   password $HEROKU_API_KEY
+   login ameersuhail_b150592cs@nitc.ac.in
+   password 8d522b31-9d8e-4304-8865-8a4ccb3be212
  machine git.heroku.com
-   login $HEROKU_LOGIN
-   password $HEROKU_API_KEY
+   login ameersuhail_b150592cs@nitc.ac.in
+   password 8d522b31-9d8e-4304-8865-8a4ccb3be212
  EOF
 
  sudo chmod 600 ~/.netrc 
