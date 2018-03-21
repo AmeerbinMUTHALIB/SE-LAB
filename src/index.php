@@ -1,32 +1,49 @@
-<?php
-session_start();
-?>
-
-
+<!DOCTYPE html>
 <title>NITC</title>
 <link rel="icon" href="../images/nitc_image.jpg">
-
-
 <html>
 	<head>
-
 		<meta name="google-signin-client_id" content="952937888060-v25qao6jrtprhhpm9kosm23egc1aojhh.apps.googleusercontent.com">
-		<meta name="google-signin-hosted_domain" content="nitc.ac.in" />
-<?php
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 
-if(isset($_SESSION["user_id"]) && $_SESSION["user_id"]!= ""){
-	$_SESSION["user_id"]= "";
-}
-?>
+		<script>
+    
+			function signOut() {
+      				var auth2 = gapi.auth2.getAuthInstance();
+
+      				auth2.signOut().then(function () {
+        			console.log('User signed out.');
+        			window.location="index.php";
+    				});
+    			}	
+
+    			function onLoad() {
+      				gapi.load('auth2', function() {
+      		  			gapi.auth2.init();
+      				});
+    			}
+
+  		</script>
+
+		<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
 		<style>
 
 			.navBar {
-				margin: 0;
-				padding: 0;
-				overflow: hidden;
-				background-color: #39B7CD;
-				display: block;
-				align-content: flex-start;
+			   	margin: 0;
+    				padding: 0;
+    				overflow: hidden;
+    				background-color: #39B7CD;
+    				display: block;
+    				align-content: flex-start;
+			}
+		
+			.navItemList{
+  				list-style-type: none;
+			}
+
+			.navItemList li {
+    				float: left;
 			}
 
 			.navItemList li a {
@@ -37,118 +54,94 @@ if(isset($_SESSION["user_id"]) && $_SESSION["user_id"]!= ""){
 			    	text-decoration: none;
 			}
 
-			.navtitle{
-			 	font-family: arial, sans-serif;
-			  	color: white;
-			  	text-align: center;
-			  	padding: 0px 200px 14px 6px;
-			  	margin-right: 200px;
-			  	font-size: 20px;
-			  	text-decoration: none;
-			}
-
-			.subButton{
-			  	position: relative;
-			  	margin-top:10px;
-			  	background-color: #39B7CD;;
-			  	border: none;
-			  	color: #fff;
-			  	border-radius: 15px;
-			  	width: 100px;
-			  	height: 40px;
-			  	cursor: pointer;
-			}
-
-			.blog{
-			  	border-style: solid;
-			 	border-width:1px;
-			  	border-color: #DCDCDC;
-			  	border-radius: 15px;
-			  	margin-top:10px;
-			  	padding:5px;
-			}
-
-			.blogdel{
-			  	margin-bottom:7px;
-			}
-	
-			.navItemList{
-			  	list-style-type: none;
-			}
-
-			.navItemList li {
-			    	float: left;
-			}
-			
 			.navItemList li a:hover {
+			}
+
+			.navtitle{
+  				font-family: arial, sans-serif;
+  				font-weight: bold;
+  				color: white;
+  				text-align: center;
+  				padding: 0px 200px 14px 6px;
+				margin-right: 200px;
+				font-size: 20px;
+				text-decoration: none;
 			}
 
 			.navtitle a:hover{
 			}
-			
-			#feeds{
-			  	align-content:center;
-			}
 
-			#feeds{
-			  	border-style: solid;
-			  	border-width: 0px;
-			  	padding:10px;
-			  	border-color: #333;
-			  	border-radius: 15px;
-			  	margin: 25px 50px;
+			b{
+			  	font-weight: bold;
 			}
-
 		</style>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
-
-	<script>
-
-		var i =0;
-		
-		function onSignIn(googleUser) {
-		  	var profile = googleUser.getBasicProfile();
-		  
-			document.getElementById("emailval").value=profile.getEmail();
-		  	document.getElementById("nameval").value=profile.getName();
-		  	document.getElementById("signinform").submit();
-		 
-			i=1;
-		}
-
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			
-			auth2.signOut().then(function () {
-				console.log('User signed out.');
-			});
-		}
-
-		function signIN(){
-			if(i==1)
-				document.getElementById("signinform").submit();
-		}
-
-	</script>
 	</head>
+<?php
+
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$servername = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $db);
+
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  	$email_val = $_POST['user_email'];
+  	
+	$qry="SELECT * FROM user WHERE emailid='" . $email_val."'";
+  
+	$result = mysqli_query($conn,$qry);
+  	$row  = mysqli_fetch_assoc($result);
+
+  	if(is_array($row)) {
+    		$_SESSION['user_id'] = $row['flag'];
+   	 	$_SESSION['username']=$_POST['user_name'];
+  	}
+}
+
+if($_SESSION['user_id']=="") {
+  	header('Location:login.php');
+}
+?>
 
 	<body style="padding:0;margin:0;font-family: arial, sans-serif;">
-		<div class="navBar">
-	  		<ul class="navItemList">
-	     	 		<li><div class="navtitle"><a href="#"><b>Doc Tracker</b></a></div></li>
-	    		</ul>
-	  	</div>
-		<center>
-			<h1>Sign In</h1>
-			<form action="login.php" id="signinform" method="post" style="display:none">
-				<input name="user_email" id="emailval" style="display:none" required/>
-				<input name="user_name" id="nameval" style="display:none" required/>
-			</form>
-			<div class="g-signin2" data-onsuccess="onSignIn" onclick="signIN();"></div>
-		</center>
-	</body>
+		  <div class="navBar">
+		  	<ul class="navItemList">
+		      		<li>
+					<div class="navtitle"><a href="index.php">
+						<b>Doc Tracker</b></a>
+					</div>	
+				</li>
+		      		<li style="font-family: arial, sans-serif;float:right;margin-right:5px;">
+					<a href="#" onclick="signOut()"><b>Logout</b></a>
+				</li>
+		    
+		      		<li style="font-family: arial, sans-serif;float:right;margin-right:5px;">
+					<a href="login.php"><b>
+<?php 
+if($_SESSION['user_id']=='1'){
+	echo 'Dean';
+}
 
+elseif ($_SESSION['user_id']=='2') {
+	echo 'DR';
+}
+
+else {
+	$temp=$_SESSION['user_id']-2;
+	echo 'GA';
+	echo $temp;
+}
+?>
+		      	
+		   		     	</b></a>
+				</li>
+		    	</ul>
+		</div>
+	</body>
 </html>
