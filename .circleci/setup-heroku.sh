@@ -10,18 +10,13 @@ set -eu
  cat > ~/.netrc << EOF
 
  machine api.heroku.com
-   login $HEROKU_LOGIN
+   login $HEROKU_USERNAME
    password $HEROKU_API_KEY
  machine git.heroku.com
-   login $HEROKU_LOGIN
+   login $HEROKU_USERNAME
    password $HEROKU_API_KEY
  EOF
 
  sudo chmod 600 ~/.netrc 
 
  ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts
-
- cat >> ~/.ssh/config << EOF
- VerifyHostKeyDNS yes
- StrictHostKeyChecking no
- EOF
