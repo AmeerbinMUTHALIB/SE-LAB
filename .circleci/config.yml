@@ -18,4 +18,15 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: Setup Heroku
+          command: |
+            chmod +x .circleci/setup-heroku.sh
+            .circleci/setup-heroku.sh
+
+      - run:
+          name: Deploy to Heroku
+          command: |
+            cd src/
+            git push heroku master
 
